@@ -38,11 +38,13 @@ latest_posts:
   article > .profile {
     width: 180px !important;
     max-width: 28%;
+    margin-top: -0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .home-sections {
-    clear: both;
-    padding-top: 1rem;
+    clear: none;
+    padding-top: 0.15rem;
   }
 
   .home-sections h2 {
@@ -231,21 +233,60 @@ latest_posts:
   }
 
   .publication-panel ol.bibliography .links a.abstract {
-    order: 2;
+    display: none;
   }
 
   .publication-panel ol.bibliography .links a[href*="project-espada.github.io"] {
-    order: 3;
+    order: 2;
   }
 
   .publication-panel ol.bibliography .links a.bibtex {
-    order: 4;
+    order: 3;
+  }
+
+  .publication-tldr {
+    margin-top: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--global-theme-color);
+    color: var(--global-text-color-light);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .publication-tldr p {
+    margin: 0;
+  }
+
+  .publication-tldr-label {
+    color: var(--global-text-color);
+    font-weight: 700;
+  }
+
+  .publication-tldr-more[hidden] {
+    display: none;
+  }
+
+  .publication-tldr-toggle {
+    margin-left: 0.35rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--global-theme-color);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
   }
 
   @media (max-width: 575.98px) {
     article > .profile {
       width: 145px !important;
       max-width: 45%;
+      margin-top: 0;
+    }
+
+    .home-sections {
+      clear: both;
+      padding-top: 0.55rem;
     }
 
     .publication-toolbar {
@@ -338,12 +379,62 @@ latest_posts:
       });
     });
 
-    document.querySelectorAll(".publication-panel .links").forEach((links) => {
-      links.querySelectorAll("a.abstract").forEach((link) => {
-        link.textContent = "TL;DR";
-      });
+    const splitTldr = (text) => {
+      const cleanText = text.replace(/^TL;DR:\s*/i, "").replace(/\s+/g, " ").trim();
+      const sentences = cleanText.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [cleanText];
+      const preview = sentences[0].trim();
+      return {
+        preview,
+        rest: cleanText.slice(preview.length).trim(),
+      };
+    };
 
-      const preferredOrder = ["arXiv", "TL;DR", "Website", "Bib"];
+    document.querySelectorAll(".publication-panel .links").forEach((links) => {
+      const entry = links.closest("[id]");
+      const abstractBlock = entry?.querySelector("div.abstract");
+      const abstractButton = links.querySelector("a.abstract");
+
+      abstractButton?.remove();
+
+      if (entry && abstractBlock && !entry.querySelector(".publication-tldr")) {
+        const { preview, rest } = splitTldr(abstractBlock.textContent);
+        const tldr = document.createElement("div");
+        const paragraph = document.createElement("p");
+        const label = document.createElement("span");
+
+        tldr.className = "publication-tldr";
+        label.className = "publication-tldr-label";
+        label.textContent = "TL;DR: ";
+
+        paragraph.append(label, document.createTextNode(preview));
+
+        if (rest) {
+          const more = document.createElement("span");
+          const toggle = document.createElement("button");
+
+          more.className = "publication-tldr-more";
+          more.hidden = true;
+          more.textContent = ` ${rest}`;
+
+          toggle.className = "publication-tldr-toggle";
+          toggle.type = "button";
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.textContent = "show more";
+          toggle.addEventListener("click", () => {
+            const expanded = toggle.getAttribute("aria-expanded") === "true";
+            more.hidden = expanded;
+            toggle.setAttribute("aria-expanded", String(!expanded));
+            toggle.textContent = expanded ? "show more" : "show less";
+          });
+
+          paragraph.append(more, toggle);
+        }
+
+        tldr.appendChild(paragraph);
+        links.after(tldr);
+      }
+
+      const preferredOrder = ["arXiv", "Website", "Bib"];
       preferredOrder.forEach((label) => {
         Array.from(links.querySelectorAll("a")).forEach((link) => {
           if (link.textContent.trim() === label) links.appendChild(link);
