@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2026-08-05
+date: 2026-06-01
 inline: true
 related_posts: false
 ---
 
-I will be studying at the University of Washington as an exchange student during the Winter and Spring quarters of 2027.
+[ESPADA](https://arxiv.org/abs/2512.07371) accepted for presentation of IROS 2026.

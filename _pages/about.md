@@ -38,13 +38,13 @@ latest_posts:
   article > .profile {
     width: 180px !important;
     max-width: 28%;
-    margin-top: -0.75rem;
+    margin-top: -1.4rem;
     margin-bottom: 0.75rem;
   }
 
   .home-sections {
-    clear: none;
-    padding-top: 0.15rem;
+    clear: both;
+    padding-top: 1rem;
   }
 
   .home-sections h2 {
@@ -329,7 +329,36 @@ latest_posts:
 
 <h2 id="news">News</h2>
 
-{% include news.liquid limit=true %}
+<div class="news">
+  {% if site.news != blank %}
+    {% assign news_size = site.news | size %}
+    <div
+      class="table-responsive"
+      {% if page.announcements.scrollable and news_size > 3 %}
+        style="max-height: 60vw"
+      {% endif %}
+    >
+      <table class="table table-sm table-borderless">
+        {% assign news = site.news | reverse %}
+        {% assign news_limit = page.announcements.limit | default: news_size %}
+        {% for item in news limit: news_limit %}
+          <tr>
+            <th scope="row" style="width: 20%">{{ item.date | date: '%b %Y' }}</th>
+            <td>
+              {% if item.inline %}
+                {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+              {% else %}
+                <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% else %}
+    <p>No news so far...</p>
+  {% endif %}
+</div>
 
 <h2 id="publications">Publications</h2>
 
