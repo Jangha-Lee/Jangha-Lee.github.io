@@ -35,6 +35,10 @@ latest_posts:
     display: none !important;
   }
 
+  body > footer {
+    display: none !important;
+  }
+
   article > .profile {
     width: 180px !important;
     max-width: 28%;
