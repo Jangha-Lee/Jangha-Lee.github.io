@@ -423,7 +423,11 @@ latest_posts:
     });
 
     const splitTldr = (text) => {
-      const cleanText = text.replace(/^TL;DR:\s*/i, "").replace(/\s+/g, " ").trim();
+      const cleanText = text
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/^TL;DR:\s*/i, "")
+        .trim();
       const sentences = cleanText.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [cleanText];
       const preview = sentences[0].trim();
       return {
