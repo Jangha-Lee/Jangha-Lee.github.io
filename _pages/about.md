@@ -39,16 +39,20 @@ latest_posts:
     display: none !important;
   }
 
+  .post-header {
+    margin-bottom: 0.25rem;
+  }
+
   article > .profile {
     width: 180px !important;
     max-width: 28%;
-    margin-top: -1.4rem;
-    margin-bottom: 0.75rem;
+    margin-top: -2.35rem;
+    margin-bottom: 0.45rem;
   }
 
   .home-sections {
     clear: both;
-    padding-top: 1rem;
+    padding-top: 0.25rem;
   }
 
   .home-sections h2 {
@@ -286,6 +290,10 @@ latest_posts:
       width: 145px !important;
       max-width: 45%;
       margin-top: 0;
+    }
+
+    .post-header {
+      margin-bottom: 0.75rem;
     }
 
     .home-sections {
