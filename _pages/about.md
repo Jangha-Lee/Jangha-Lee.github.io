@@ -9,7 +9,7 @@ profile:
   image: prof_pic.jpg
   image_circular: false
   more_info: >
-    <p>SNU PI Lab</p>
+    <p><a href="https://pi.snu.ac.kr/" target="_blank" rel="noopener noreferrer">SNU PI Lab</a></p>
     <p>Seoul, South Korea</p>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
@@ -199,6 +199,11 @@ latest_posts:
     border-bottom: 0;
   }
 
+  .publication-panel #lee2026ownership .author,
+  .publication-panel #lee2026refineground .author {
+    display: none;
+  }
+
   .publication-panel ol.bibliography .periodical {
     margin-bottom: 0.7rem;
     color: var(--global-text-color);
@@ -325,7 +330,7 @@ latest_posts:
 
 <p>
   I am an undergraduate researcher in AI at Seoul National University.<br>
-  I am currently a research intern at SNU PI Lab, led by Prof. Youngjae Yu.
+  I am currently a research intern at <a href="https://pi.snu.ac.kr/" target="_blank" rel="noopener noreferrer">SNU PI Lab</a>, led by Prof. Youngjae Yu.
 </p>
 
 <p>I work on video understanding and enhancing visual representations for robotics,<br>
