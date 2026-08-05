@@ -52,7 +52,8 @@ latest_posts:
 
   .home-sections {
     clear: both;
-    padding-top: 0.25rem;
+    margin-top: -0.7rem;
+    padding-top: 0;
   }
 
   .home-sections h2 {
@@ -298,6 +299,7 @@ latest_posts:
 
     .home-sections {
       clear: both;
+      margin-top: 0;
       padding-top: 0.55rem;
     }
 
