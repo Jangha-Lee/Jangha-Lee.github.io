@@ -46,13 +46,13 @@ latest_posts:
   article > .profile {
     width: 180px !important;
     max-width: 28%;
-    margin-top: -2.35rem;
-    margin-bottom: 0.45rem;
+    margin-top: -1.8rem;
+    margin-bottom: 0.2rem;
   }
 
   .home-sections {
     clear: both;
-    margin-top: -0.7rem;
+    margin-top: -1.45rem;
     padding-top: 0;
   }
 
